@@ -7,7 +7,7 @@ import java.text.NumberFormat;
 public class GUI {
     private final JPanel panel;
     private final JFrame frame;
-    private String selection;
+    private String makeSelection, yearSelection, mileageInput;
     private JLabel labelMileage;
     private JFormattedTextField mileage;
     private JButton enterButton;
@@ -54,8 +54,9 @@ public class GUI {
         JComboBox yearsList = new JComboBox(carYears);
         yearsList.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-
+            public void actionPerformed(ActionEvent e)
+            {
+                yearSelection = yearsList.getSelectedItem().toString();
             }
         });
         panel.add(yearsList);
@@ -79,19 +80,17 @@ public class GUI {
         makeList.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                selection = makeList.getSelectedItem().toString();
-                selectionDeletion();
-                selectionAddition();
+                makeSelection = makeList.getSelectedItem().toString();
+                makeDeletion();
+                makeAddition();
                 panel.revalidate();
                 frame.pack();
             }
         });
-
     }
-
-    public void selectionAddition() {
+    public void makeAddition() {
         modelLabel();
-        if (selection.equals("Ford")) {
+        if (makeSelection.equals("Ford")) {
             String[] fordModel = {
                     "Explorer",
                     "Edge",
@@ -107,7 +106,7 @@ public class GUI {
             panel.add(fordList);
             textboxForMileage();
         }
-        if (selection.equals("Honda")) {
+        if (makeSelection.equals("Honda")) {
             String[] hondaModel = {
                     "CR-V",
                     "Civic",
@@ -124,7 +123,7 @@ public class GUI {
             textboxForMileage();
 
         }
-        if (selection.equals("Hyundai")) {
+        if (makeSelection.equals("Hyundai")) {
             String[] hyundaiModel = {
                     "Tucson",
                     "Elantra",
@@ -141,7 +140,7 @@ public class GUI {
             textboxForMileage();
 
         }
-        if (selection.equals("Toyota")) {
+        if (makeSelection.equals("Toyota")) {
             String[] toyotaModel = {
                     "Camry",
                     "Corolla",
@@ -158,7 +157,7 @@ public class GUI {
             textboxForMileage();
 
         }
-        if (selection.equals("Chevrolet")) {
+        if (makeSelection.equals("Chevrolet")) {
             {
                 String[] chevroletModel = {
                         "Trailblazer",
@@ -181,8 +180,8 @@ public class GUI {
         frame.pack();
     }
 
-    public void selectionDeletion() {
-
+    public void makeDeletion()
+    {
         if (fordList != null) {
             panel.remove(fordList);
             fordList = null;
@@ -219,10 +218,20 @@ public class GUI {
             panel.remove(enterButton);
             enterButton = null;
         }
-        panel.revalidate();
         frame.pack();
     }
 
+    public void activateEnter()
+    {
+        //if vehicle year, mileage, make, and model all have selected values, activate the enter button
+
+        if(yearSelection != null && makeSelection != null)
+        {
+            enterButton.setEnabled(true);
+            panel.revalidate();
+            frame.pack();
+        }
+    }
     public void textboxForMileage() {
         labelMileage = new JLabel("Vehicle Mileage");
         labelMileage.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -240,21 +249,24 @@ public class GUI {
         enterButton.setHorizontalTextPosition(AbstractButton.LEADING);
         enterButton.setMnemonic(KeyEvent.VK_ENTER);
         enterButton.setEnabled(false);
+
         enterButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
 
             }
         });
         panel.add(enterButton);
         mileage.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-
+            public void actionPerformed(ActionEvent e)
+            {
+                 mileageInput = mileage.getSelectedText();
+                activateEnter();
             }
         });
     }
-
     public void modelLabel() {
         labelModel = new JLabel("Model");
         labelModel.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -262,9 +274,4 @@ public class GUI {
         panel.add(labelModel);
     }
 
-
-    public static void main(String[] args)
-    {
-        new GUI();
-    }
 }
