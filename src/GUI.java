@@ -3,7 +3,10 @@ import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.NumberFormat;
-
+/*
+    This class represents the GUI of the Car Maintenance Tool.
+    Author: Aniya Frye 6/30/2025
+ */
 public class GUI {
     private final JPanel panel;
     private final JFrame frame;
@@ -18,6 +21,8 @@ public class GUI {
     private JComboBox chevroletList;
     private JLabel labelModel;
 
+// Creates the frame and overall setup of the GUI for the maintenance tool
+
     GUI() {
 
         frame = new JFrame(" Car Maintenance Tool");
@@ -31,6 +36,7 @@ public class GUI {
         frame.setVisible(true);
         frame.pack();
     }
+// Creates the 2010-2020 year options for the user to choose from
 
     public void listOfYears() {
         JLabel labelYear = new JLabel("Vehicle Year");
@@ -61,7 +67,8 @@ public class GUI {
         });
         panel.add(yearsList);
     }
-
+//Creates the list of 5 make options for the user to choose from
+//Once a make is selected, the action listener calls for the model options to appear for the specifc make
     public void listOfMakes() {
         JLabel labelMake = new JLabel("Vehicle Make");
         labelMake.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -88,6 +95,7 @@ public class GUI {
             }
         });
     }
+    //Creates the model list for the make chosen
     public void makeAddition() {
         modelLabel();
         if (makeSelection.equals("Ford")) {
@@ -179,7 +187,7 @@ public class GUI {
         panel.revalidate();
         frame.pack();
     }
-
+//Deletes the model list if the make is changed or unselected
     public void makeDeletion()
     {
         if (fordList != null) {
@@ -220,7 +228,7 @@ public class GUI {
         }
         frame.pack();
     }
-
+//Activates the enter button once a year and make is elected by the user
     public void activateEnter()
     {
         //if vehicle year, mileage, make, and model all have selected values, activate the enter button
@@ -232,6 +240,7 @@ public class GUI {
             frame.pack();
         }
     }
+//Creates the mileage box that only allows numbers to be inserted
     public void textboxForMileage() {
         labelMileage = new JLabel("Vehicle Mileage");
         labelMileage.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -267,6 +276,7 @@ public class GUI {
             }
         });
     }
+//Creates the model label for the GUI
     public void modelLabel() {
         labelModel = new JLabel("Model");
         labelModel.setFont(new Font("Arial", Font.PLAIN, 15));
