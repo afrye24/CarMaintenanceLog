@@ -2,6 +2,7 @@ import javax.swing.*;
 import javax.swing.text.NumberFormatter;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
 import java.text.NumberFormat;
 /*
     This class represents the GUI of the Car Maintenance Tool.
@@ -10,15 +11,15 @@ import java.text.NumberFormat;
 public class GUI {
     private final JPanel panel;
     private final JFrame frame;
-    private String makeSelection, yearSelection, mileageInput;
+    private String makeSelection;
+    private String yearSelection;
+    private String mileInput;
     private JLabel labelMileage;
     private JFormattedTextField mileage;
     private JButton enterButton;
-    private JComboBox fordList;
     private JComboBox hondaList;
     private JComboBox toyotaList;
     private JComboBox hyundaiList;
-    private JComboBox chevroletList;
     private JLabel labelModel;
 
 // Creates the frame and overall setup of the GUI for the maintenance tool
@@ -36,7 +37,7 @@ public class GUI {
         frame.setVisible(true);
         frame.pack();
     }
-// Creates the 2010-2020 year options for the user to choose from
+// Creates the 2005-2010 year options for the user to choose from
 
     public void listOfYears() {
         JLabel labelYear = new JLabel("Vehicle Year");
@@ -45,17 +46,12 @@ public class GUI {
         panel.add(labelYear);
         String[] carYears = {
                 "Select Year",
-                "2010",
-                "2011",
-                "2012",
-                "2013",
-                "2014",
-                "2015",
-                "2016",
-                "2017",
-                "2018",
-                "2019",
-                "2020"
+                "2020",
+                "2021",
+                "2022",
+                "2023",
+                "2024",
+                "2025"
         };
         JComboBox yearsList = new JComboBox(carYears);
         yearsList.addActionListener(new ActionListener() {
@@ -68,15 +64,13 @@ public class GUI {
         panel.add(yearsList);
     }
 //Creates the list of 5 make options for the user to choose from
-//Once a make is selected, the action listener calls for the model options to appear for the specifc make
+//Once a make is selected, the action listener calls for the model options to appear for the specific make
     public void listOfMakes() {
         JLabel labelMake = new JLabel("Vehicle Make");
         labelMake.setFont(new Font("Arial", Font.PLAIN, 15));
         panel.add(labelMake);
         String[] carMakes = {
                 "Select Make",
-                "Ford",
-                "Chevrolet",
                 "Toyota",
                 "Hyundai",
                 "Honda"
@@ -98,22 +92,7 @@ public class GUI {
     //Creates the model list for the make chosen
     public void makeAddition() {
         modelLabel();
-        if (makeSelection.equals("Ford")) {
-            String[] fordModel = {
-                    "Explorer",
-                    "Edge",
-                    "Maverick",
-                    "Transit",
-                    "F-Series",
-                    "Bronco",
-                    "Mustang",
-                    "Expedition",
-                    "Bronco Sport"
-            };
-            fordList = new JComboBox(fordModel);
-            panel.add(fordList);
-            textboxForMileage();
-        }
+
         if (makeSelection.equals("Honda")) {
             String[] hondaModel = {
                     "CR-V",
@@ -122,9 +101,6 @@ public class GUI {
                     "Pilot",
                     "HR-V",
                     "Odyssey",
-                    "Prologue",
-                    "Ridgeline",
-                    "Passport"
             };
             hondaList = new JComboBox(hondaModel);
             panel.add(hondaList);
@@ -135,13 +111,10 @@ public class GUI {
             String[] hyundaiModel = {
                     "Tucson",
                     "Elantra",
-                    "Palisade",
                     "Santa Fe",
                     "Kona",
-                    "Ioniq-5",
                     "Sonata",
                     "Santa Cruz",
-                    "Venue"
             };
             hyundaiList = new JComboBox(hyundaiModel);
             panel.add(hyundaiList);
@@ -153,9 +126,6 @@ public class GUI {
                     "Camry",
                     "Corolla",
                     "RAV4",
-                    "Highlander",
-                    "Tacoma",
-                    "Tundra",
                     "Sienna",
                     "4Runner",
                     "Prius"
@@ -165,35 +135,12 @@ public class GUI {
             textboxForMileage();
 
         }
-        if (makeSelection.equals("Chevrolet")) {
-            {
-                String[] chevroletModel = {
-                        "Trailblazer",
-                        "Colorado",
-                        "Equinox",
-                        "Malibu",
-                        "Silverado LD",
-                        "Silverado HD",
-                        "Tahoe",
-                        "Trax",
-                        "Traverse"
-                };
-                chevroletList = new JComboBox(chevroletModel);
-                panel.add(chevroletList);
-                textboxForMileage();
-            }
-
-        }
         panel.revalidate();
         frame.pack();
     }
 //Deletes the model list if the make is changed or unselected
     public void makeDeletion()
     {
-        if (fordList != null) {
-            panel.remove(fordList);
-            fordList = null;
-        }
         if (hondaList != null) {
             panel.remove(hondaList);
             hondaList = null;
@@ -201,10 +148,6 @@ public class GUI {
         if (hyundaiList != null) {
             panel.remove(hyundaiList);
             hyundaiList = null;
-        }
-        if (chevroletList != null) {
-            panel.remove(chevroletList);
-            chevroletList = null;
         }
         if (toyotaList != null) {
             panel.remove(toyotaList);
@@ -228,7 +171,7 @@ public class GUI {
         }
         frame.pack();
     }
-//Activates the enter button once a year and make is elected by the user
+//Activates the enter button once a year and make is selected by the user
     public void activateEnter()
     {
         //if vehicle year, mileage, make, and model all have selected values, activate the enter button
@@ -259,20 +202,21 @@ public class GUI {
         enterButton.setMnemonic(KeyEvent.VK_ENTER);
         enterButton.setEnabled(false);
 
-        enterButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e)
-            {
 
-            }
-        });
         panel.add(enterButton);
         mileage.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                 mileageInput = mileage.getSelectedText();
+                  mileInput = mileage.getText();
                 activateEnter();
+            }
+        });
+        enterButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+
             }
         });
     }
@@ -284,9 +228,5 @@ public class GUI {
         panel.add(labelModel);
     }
 
-    public void maintenanceForHonda()
-    {
-        
-    }
 
 }
