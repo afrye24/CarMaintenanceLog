@@ -75,7 +75,7 @@ It aims to:
 
 Aniya Frye - (https://www.linkedin.com/in/aniya-frye/) - aniyaf24@vt.edu
 
-Project Link: [https://github.com/afrye24/car-maintenance-tool](https://github.com/afrye24/car-maintenance-tool)  
+Project Link: (https://github.com/afrye24/CarMaintenanceTool)  
 
 ---
 
