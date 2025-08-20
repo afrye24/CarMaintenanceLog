@@ -36,7 +36,7 @@ public class GUI {
         frame.setVisible(true);
         frame.pack();
     }
-// Creates the 2005-2010 year options for the user to choose from
+// Creates the 2008 year option for the user to choose
 
     public void listOfYears() {
         JLabel labelYear = new JLabel("Vehicle Year");
@@ -57,7 +57,7 @@ public class GUI {
         });
         panel.add(yearsList);
     }
-//Creates the list of 5 make options for the user to choose from
+//Creates the list of make options for the user to choose from
 //Once a make is selected, the action listener calls for the model options to appear for the specific make
     public void listOfMakes() {
         JLabel labelMake = new JLabel("Vehicle Make");
@@ -146,6 +146,8 @@ public class GUI {
         labelModel.setHorizontalAlignment(2);
         panel.add(labelModel);
     }
+    //Creates the recommendation of maintenance based on the mileage entered into the tool
+    // after pressing the enter button
     public void maintenanceRecommendation()
     {
         int mile = Integer.parseInt(mileInput.replace(",", ""));
@@ -401,6 +403,18 @@ public class GUI {
         }
 
     }
+    //Creates the maintenance recommendations for every 5000 miles of the Scion xB
+    public void everyFiveThousand()
+    {
+        JOptionPane.showMessageDialog(frame,
+                "Replace engine oil and oil filter\n"+
+                        "Rotate tires\n" +
+                        "Visually inspect brake linings/drums" +
+                        " and brake pads/discs",
+                "Maintenance Recommendation",
+                JOptionPane.PLAIN_MESSAGE);
+    }
+    //Creates the maintenance recommendations for every 15000 miles of the Scion xB
         public void everyFifteenThousand()
         {
             JOptionPane.showMessageDialog(frame,
@@ -419,7 +433,9 @@ public class GUI {
                     "Maintenance Recommendation",
                     JOptionPane.PLAIN_MESSAGE);
         }
-        public void everyThirtyThousand()
+    //Creates the maintenance recommendations for every 30000 miles of the Scion xB
+
+    public void everyThirtyThousand()
         {
             JOptionPane.showMessageDialog(frame,
                     "Replace cabin air filter\n"+
@@ -445,15 +461,4 @@ public class GUI {
                     "Maintenance Recommendation",
                     JOptionPane.PLAIN_MESSAGE);
         }
-    public void everyFiveThousand()
-    {
-        JOptionPane.showMessageDialog(frame,
-                "Replace engine oil and oil filter\n"+
-                        "Rotate tires\n" +
-                        "Visually inspect brake linings/drums" +
-                        " and brake pads/discs",
-                "Maintenance Recommendation",
-                JOptionPane.PLAIN_MESSAGE);
-    }
-
 }
